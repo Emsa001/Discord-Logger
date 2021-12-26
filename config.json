@@ -1,5 +1,6 @@
 {
-  "read_data_server": "guild id",
-  "save_data_server": "guild id",
-  "token": "token"
+  "prefix": "!",
+  "read_data_server": "893643007587397672",
+  "save_data_server": "795384585986899978",
+  "token": "#"
 }
