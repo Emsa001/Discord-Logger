@@ -2,6 +2,7 @@ import { ChannelType, AttachmentBuilder } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { downloadFile } from "./file";
+import moment from "moment";
 
 // Function to clone a channel with its messages and attachments
 async function cloneChannel(sourceChannel, targetGuild, categoryMap) {
@@ -43,8 +44,10 @@ async function cloneChannel(sourceChannel, targetGuild, categoryMap) {
                 }
             }
 
+            const date = moment(message.createdAt).format("YYYY-MM-DD HH:mm:ss");
             await targetChannel.send({
-                content: `**${message.author.tag} ▸** ${message.content}`,
+                content: `[${date}] ${message.content}`,
+                // content: `**${message.author.tag} ▸** ${message.content}`,
                 embeds: message.embeds,
                 files: files
             });

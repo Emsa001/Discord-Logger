@@ -7,6 +7,7 @@ import clearTargetGuildChannels from "./clean";
 import fs from "fs";
 import path from "path";
 import { downloadFile } from "./file";
+import moment from "moment";
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 if (!process.env.READ_SERVER) {
@@ -22,7 +23,7 @@ client.on("ready", async () => {
     if (!client.user) return console.error("Client user is null");
     console.log(`Logged in as ${client.user.tag}!`);
 
-    await clearTargetGuildChannels(client.guilds.cache.get(process.env.WRITE_SERVER || ""));
+    // await clearTargetGuildChannels(client.guilds.cache.get(process.env.WRITE_SERVER || ""));
     // await createChannels(client);
 });
 
