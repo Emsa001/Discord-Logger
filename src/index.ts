@@ -1,13 +1,13 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import { AttachmentBuilder, ChannelType, Client, GatewayIntentBits, NewsChannel, TextChannel } from "discord.js";
+import { AttachmentBuilder, Client, GatewayIntentBits, TextChannel } from "discord.js";
 import createChannels from "./create";
 import clearTargetGuildChannels from "./clean";
 import fs from "fs";
 import path from "path";
 import { downloadFile } from "./file";
-import moment from "moment";
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 if (!process.env.READ_SERVER) {
@@ -23,8 +23,8 @@ client.on("ready", async () => {
     if (!client.user) return console.error("Client user is null");
     console.log(`Logged in as ${client.user.tag}!`);
 
-    // await clearTargetGuildChannels(client.guilds.cache.get(process.env.WRITE_SERVER || ""));
-    // await createChannels(client);
+    await clearTargetGuildChannels(client.guilds.cache.get(process.env.WRITE_SERVER || ""));
+    await createChannels(client);
 });
 
 client.on("messageCreate", async (message) => {
@@ -66,8 +66,9 @@ client.on("messageCreate", async (message) => {
             replyOptions = { ...replyOptions, reply: { messageReference: targetReferenceMessage.id } };
         }
     }
-
-    await targetChannel.send(replyOptions);
+    
+    console.log(replyOptions);
+    // await targetChannel.send(replyOptions);
 
     // Remove the files after sending
     files.forEach(file => fs.unlinkSync(file.attachment));

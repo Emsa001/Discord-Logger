@@ -45,9 +45,10 @@ async function cloneChannel(sourceChannel, targetGuild, categoryMap) {
             }
 
             const date = moment(message.createdAt).format("YYYY-MM-DD HH:mm:ss");
+            const dateString = "`[" + date + "]`";
             await targetChannel.send({
-                content: `[${date}] ${message.content}`,
-                // content: `**${message.author.tag} ▸** ${message.content}`,
+                // content: `[${date}] ${message.content}`,
+                content: `${dateString} **${message.author.tag} ▸** ${message.content}`,
                 embeds: message.embeds,
                 files: files
             });
